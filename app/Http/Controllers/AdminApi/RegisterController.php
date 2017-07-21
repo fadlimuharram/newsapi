@@ -63,10 +63,17 @@ class RegisterController extends Controller
     private function createUser($req)
     {
       try {
+        $dataFromToken = JWTAuth::setToken($req->header('Authorization'))->parseToken()->authenticate();
+
+      } catch (\Tymon\JWTAuth\Exceptions\JWTException $e) {
+        return response()->json($e->getMessage(),$e->getStatusCode());
+      }
+
 
         $usr = User::create([
                    'email' => $req->email,
                    'level' => $req->level,
+                   'byadmin' => $dataFromToken['id'],
                    'password' => bcrypt($req->password),
                ]);
         if ($req->level == 'admin') {
@@ -81,9 +88,7 @@ class RegisterController extends Controller
             ]);
         }
 
-      } catch (\Exception $e) {
-        return response()->json($e->getMessage());
-      }
+
     }
 
 }

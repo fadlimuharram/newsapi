@@ -29,7 +29,7 @@ class CekAdminToken
         }
 
         if ($user['level']!=='admin') {
-          return response()->json(['you are not allowed']);
+          return response()->json(['condition'=>'fail','messages'=>'you are not allowed']);
         }
         return $next($request);
     }

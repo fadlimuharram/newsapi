@@ -38,7 +38,7 @@ class LoginController extends Controller
             return response()->json(['error' => 'could_not_create_token'], 500);
         }
         // all good so return the token
-        return response()->json(['condition'=>'success','messages'=>'anda berhasil login','token'=>$token,'Data'=>$this->checklevel()]);
+        return response()->json(['condition'=>'success','messages'=>'You have successfully logged in','token'=>$token,'Data'=>$this->checklevel()]);
     }
 
     private function validateLogin($req)
