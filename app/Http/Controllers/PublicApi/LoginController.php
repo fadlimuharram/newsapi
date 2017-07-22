@@ -48,7 +48,7 @@ class LoginController extends Controller
                     'password' => 'required|string'
                   ]);
       if ($validasi->fails()) {
-        return response()->json($validasi->messages());
+        return response()->json(['condition'=>'fail','messages'=>$validasi->messages()]);
       }
       return 'success';
     }
