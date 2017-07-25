@@ -74,12 +74,12 @@ class PictureController
               'original'=>[
               'condition'=>'success',
               'messages'=>'Original File successfully uploaded',
-              'location'=>url('api/picture/'.$original.'/true')
+              'location'=>url('api/picture'.$original.'/true')
             ],
               'compress'=>[
               'condition'=>'success',
               'messages'=>'Compress File successfully uploaded',
-              'location'=>url('api/picture/'.$resize.'/true')
+              'location'=>url('api/picture'.$resize.'/true')
               ]
             ]);
           }else {
@@ -167,5 +167,21 @@ class PictureController
       }
 
       return substr($path, 14);
+    }
+
+    public function deleteFile($name){
+      $hitung = Picture::where('namepic',$name)->count();
+      if ($hitung == 1) {
+        try {
+          Storage::delete("public/" . $this->dir ."/" . $name);
+          Storage::delete("public/" . $this->dirCompress ."/" . $name);
+          Picture::where('namepic',$name)->delete();
+        } catch (\Exception $e) {
+          return response()->json(['condition'=>'fail','messages'=>$e->getMessage()]);
+        }
+        return response()->json(['condition'=>'success','messages'=>"Picture with name " . $name . " successfully deleted"]);
+      }else {
+        return response()->json(['condition'=>'fail','messages'=>'Image Not Found']);
+      }
     }
 }
