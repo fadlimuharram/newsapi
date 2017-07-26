@@ -18,7 +18,7 @@ class CreateVideosTable extends Migration
             $table->string('namevid',100);
             $table->string('poster',100);
             $table->string('title',100);
-            $table->text('desc');
+            $table->text('description');
             $table->integer('byadmin')->unsigned();
             $table->timestamps();
         });

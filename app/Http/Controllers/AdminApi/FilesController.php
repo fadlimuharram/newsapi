@@ -22,7 +22,9 @@ class FilesController extends Controller
     }
 
     public function uploadVideo(Request $req){
-
+      $vid = new VideoController;
+      $vid->setFileUpload("videos");
+      return $vid->fileUpload($req);
     }
 
 
