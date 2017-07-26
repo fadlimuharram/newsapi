@@ -44,6 +44,9 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ($exception instanceof \Illuminate\Http\Exceptions\PostTooLargeException) {
+            return response()->json(['condition'=>'fail','messages'=>'Post Too Large Please Contact Web Master','error'=>'PostTooLargeException']);
+        }
         return parent::render($request, $exception);
     }
 

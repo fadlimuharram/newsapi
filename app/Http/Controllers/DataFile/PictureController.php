@@ -28,7 +28,7 @@ class PictureController
       $pic = Picture::where('namepic',$name);
       $hitung = $pic->count();
       $data = $pic->get()->toArray();
-      if ($hitung > 0) {
+      if ($hitung == 1) {
         if ($compress) {
           $url = Storage::url($this->dirCompress."/".$name);
         }else {
@@ -39,6 +39,9 @@ class PictureController
                 'title'=>$data[0]['titlepic'],
                 'created_at'=>$data[0]['created_at']
               ];
+      }
+      if ($hitung > 1) {
+        return response()->json(['condition'=>'fail','messages'=>'multiple pictures found!, please contact web master']);
       }
     }
 
@@ -53,7 +56,7 @@ class PictureController
         }else {
           $image_base_url = $this->dirCompress;
         }
-        return response()->json(['condition'=>'success','image_base_url'=>url('api/'.$image_base_url),'pagination'=>Picture::paginate()]);
+        return response()->json(['condition'=>'success','pagination'=>Picture::paginate()]);
       }else {
         return response()->json(['condition'=>'fail','messages'=>'images not found']);
       }
@@ -92,7 +95,7 @@ class PictureController
         }
 
       }else {
-        return response()->json(['condition'=>'fail','messages'=>'terjadi kesalahan']);
+        return response()->json(['condition'=>'fail','messages'=>'image(jpeg,png,jpg,gif,svg) is required']);
       }
 
     }

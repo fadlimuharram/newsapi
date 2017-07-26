@@ -8,3 +8,4 @@ Route::get('/picture/original/{namepic}/{asjson?}','PublicApi\ReadFileController
 Route::get('/picture/compress/{namepic}/{asjson?}','PublicApi\ReadFileController@GetCompressPicture');
 Route::get('/picture/all/original','PublicApi\ReadFileController@GetAllOriginalPicture');
 Route::get('/picture/all/compress','PublicApi\ReadFileController@GetAllCompressPicture');
+Route::get('/video/{namevid}/{asjson?}','PublicApi\ReadFileController@GetVideo');

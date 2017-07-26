@@ -4,27 +4,26 @@ namespace App\Http\Controllers\AdminApi;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Controllers\DataFile\PictureController;
-use App\Http\Controllers\DataFile\VideoController;
+use App\Http\Controllers\DataFile\Factory as DataFileFactory;
 class FilesController extends Controller
 {
 
     public function uploadPicture(Request $req){
-      $img = new PictureController;
-      $img->setFileUpload("picture/original","picture/compress");
-      return $img->fileUpload($req);
+      $factory = new DataFileFactory;
+      $picture = $factory->SetPicture();
+      return $picture->fileUpload($req);
     }
 
     public function deletePicture($namepic){
-      $img = new PictureController;
-      $img->setFileUpload("picture/original","picture/compress");
-      return $img->deleteFile($namepic);
+      $factory = new DataFileFactory;
+      $picture = $factory->SetPicture();
+      return $picture->deleteFile($namepic);
     }
 
     public function uploadVideo(Request $req){
-      $vid = new VideoController;
-      $vid->setFileUpload("videos");
-      return $vid->fileUpload($req);
+      $factory = new DataFileFactory;
+      $video = $factory->SetVideo();
+      return $video->fileUpload($req);
     }
 
 
