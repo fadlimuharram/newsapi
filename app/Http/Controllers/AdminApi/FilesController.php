@@ -26,5 +26,11 @@ class FilesController extends Controller
       return $video->fileUpload($req);
     }
 
+    public function editVideo(Request $req,$namevid){
+      $factory = new DataFileFactory;
+      $video = $factory->SetVideo();
+      return $video->editVideo($namevid,$req);
+    }
+
 
 }

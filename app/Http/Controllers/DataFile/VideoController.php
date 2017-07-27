@@ -36,7 +36,7 @@ class VideoController
         ];
       }
       if ($hitung > 1) {
-        return response()->json(['condition'=>'fail','messages'=>'multiple videos found!, please contact web master']);
+        return $this->MultipleException();
       }
     }
 
@@ -142,6 +142,91 @@ class VideoController
       }
       return "success";
 
+    }
+
+    private function MultipleException(){
+      return response()->json(['condition'=>'fail','messages'=>'multiple videos found!, please contact web master']);
+    }
+
+
+
+    public function editVideo($namevideo,$req){
+
+      $vid = Video::where('namevid',$namevideo);
+      $hitung = $vid->count();
+      $data = $vid->get()->toArray();
+      if ($req->all() == null) {
+        return response()->json(['condition'=>'fail','messages'=>'please provide one of these entries : title, poster or description']);
+      }
+      if ($hitung == 1) {
+        $validasi = $this->validateEditVideo($req);
+        if ($validasi == 'success') {
+          $poster = null;
+          if ($req->poster != null) {
+            try {
+              Storage::delete("public/" . $this->dir . "/" . $data[0]['poster']);
+              $poster = $this->uploadPoster($req);
+            } catch (Exception $e) {
+              return response()->json(['condition'=>'fail','messages'=>$e->getMessage()]);
+            }
+          }
+
+          $upd = $this->updateVideo($namevideo,$req,$poster);
+
+          if ($upd == 'success') {
+            return response()->json(['condition'=>'success','messages'=>"Video $namevideo has been successfully updated"]);
+          }else {
+            return $upd;
+          }
+
+
+        }else {
+          return $validasi;
+        }
+
+      }elseif ($hitung > 1) {
+        return $this->MultipleException();
+      }else {
+        return response()->json(['condition'=>'fail','messages'=>'Video Not Found']);
+      }
+
+    }
+
+    private function validateEditVideo($req){
+      $validasi = Validator($req->all(), [
+                    'poster'=>'image|mimes:jpeg,png,jpg,gif,svg|max:1024',
+                    'title'=>'string|max:100',
+                    'description'=>'string'
+                  ]);
+      if ($validasi->fails()) {
+          return response()->json(['condition'=>'fail','messages'=>$validasi->messages()]);
+      }
+      return 'success';
+    }
+
+    private function updateVideo($namevid,$req,$poster){
+      try {
+        $vid = Video::where('namevid',$namevid)->first();
+        if ($poster != null) {
+          $vid->poster = $poster;
+        }
+
+        if ($req->title != null) {
+          $vid->title = $req->title;
+        }
+
+        if ($req->description != null) {
+          $vid->description = $req->description;
+        }
+
+        $vid->save();
+
+
+
+      } catch (\Exception $e) {
+        return response()->json(['condition'=>'fail','messages'=>$e->getMessage()]);
+      }
+      return "success";
     }
 
 

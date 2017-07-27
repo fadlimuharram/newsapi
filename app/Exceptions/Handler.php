@@ -47,6 +47,14 @@ class Handler extends ExceptionHandler
         if ($exception instanceof \Illuminate\Http\Exceptions\PostTooLargeException) {
             return response()->json(['condition'=>'fail','messages'=>'Post Too Large Please Contact Web Master','error'=>'PostTooLargeException']);
         }
+
+        if ($exception instanceof \Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException) {
+          return response()->json(['condition'=>'fail','messages'=>'Method Not Allowed']);
+        }
+
+        if ($exception instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException) {
+          return response()->json(['condition'=>'fail','messages'=>'Http Not Found']);
+        }
         return parent::render($request, $exception);
     }
 
