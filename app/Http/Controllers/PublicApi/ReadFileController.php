@@ -99,5 +99,10 @@ class ReadFileController extends Controller
       return ($asjson == 'json') ? $kembaliJson : $kembaliVid;
     }
 
+    public function GetAllVideo(){
+      $video = $this->SetVideo();
+      return $video->GetAllVideoUpload();
+    }
+
 
 }

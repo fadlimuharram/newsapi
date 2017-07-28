@@ -51,11 +51,11 @@ class PictureController
     public function getAllFileUpload($compress = true){
       $hitung = Picture::count();
       if ($hitung > 0) {
-        if ($compress) {
+        /*if ($compress) {
           $image_base_url = $this->dir;
         }else {
           $image_base_url = $this->dirCompress;
-        }
+        }*/
         return response()->json(['condition'=>'success','pagination'=>Picture::paginate()]);
       }else {
         return response()->json(['condition'=>'fail','messages'=>'images not found']);

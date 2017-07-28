@@ -32,5 +32,11 @@ class FilesController extends Controller
       return $video->editVideo($namevid,$req);
     }
 
+    public function deleteVideo($namevid){
+      $factory = new DataFileFactory;
+      $video = $factory->SetVideo();
+      return $video->deleteVideo($namevid);
+    }
+
 
 }

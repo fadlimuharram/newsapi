@@ -148,6 +148,15 @@ class VideoController
       return response()->json(['condition'=>'fail','messages'=>'multiple videos found!, please contact web master']);
     }
 
+    public function GetAllVideoUpload(){
+      $hitung = Video::count();
+      if ($hitung > 0) {
+        return response()->json(['condition'=>'success','pagination'=>Video::paginate()]);
+      }else {
+        return response()->json(['condition'=>'fail','messages'=>'Video Not Found']);
+      }
+    }
+
 
 
     public function editVideo($namevideo,$req){
@@ -227,6 +236,24 @@ class VideoController
         return response()->json(['condition'=>'fail','messages'=>$e->getMessage()]);
       }
       return "success";
+    }
+
+    public function deleteVideo($namevid){
+      $video = Video::where('namevid',$namevid);
+      $data = $video->get()->toArray();
+      $hitung = $video->count();
+      if ($hitung == 1) {
+        try {
+          Storage::delete("public/".$this->dir."/".$namevid);
+          Storage::delete("public/".$this->dirPoster."/".$data[0]['poster']);
+          Video::where('namevid',$namevid)->delete();
+        } catch (Exception $e) {
+          return response()->json(['condition'=>'fail','messages'=>$e->getMessage()]);
+        }
+        return response()->json(['condition'=>'success','messages'=>"Video with name $namevid successfully deleted"]);
+      }else {
+        return response()->json(['condition'=>'fail','messages'=>'Video Not Found']);
+      }
     }
 
 
