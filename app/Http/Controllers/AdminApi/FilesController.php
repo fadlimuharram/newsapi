@@ -5,6 +5,7 @@ namespace App\Http\Controllers\AdminApi;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Controllers\DataFile\Factory as DataFileFactory;
+use App\Pilihan_video;
 class FilesController extends Controller
 {
 
@@ -36,6 +37,12 @@ class FilesController extends Controller
       $factory = new DataFileFactory;
       $video = $factory->SetVideo();
       return $video->deleteVideo($namevid);
+    }
+
+    public function pilihanVideos(Request $req){
+      $factory = new DataFileFactory;
+      $pilih = $factory->setPilihanVideo();
+      return $pilih->pilihanVideos($req);
     }
 
 

@@ -22,6 +22,12 @@ class ReadFileController extends Controller
       return $video;
     }
 
+    private function SetPilihanVideo(){
+      $factory = new DataFileFactory;
+      $pilih = $factory->setPilihanVideo();
+      return $pilih;
+    }
+
     public function GetOriginalPicture($namepic,$asjson = false){
       $pic = $this->SetPicture();
       $data = $pic->getFileUpload(false,$namepic);
@@ -102,6 +108,11 @@ class ReadFileController extends Controller
     public function GetAllVideo(){
       $video = $this->SetVideo();
       return $video->GetAllVideoUpload();
+    }
+
+    public function GetPilihanVideo(){
+      $pilihan = $this->SetPilihanVideo();
+      return $pilihan->GetPilihanVideo();
     }
 
 

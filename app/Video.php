@@ -13,4 +13,8 @@ class Video extends Model
   ];
 
   protected $hidden = ['byadmin'];
+
+  public function Pilihan_video(){
+    return $this->hasOne("App\Pilihan_video","videos_id");
+  }
 }

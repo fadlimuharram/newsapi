@@ -54,8 +54,7 @@ class RegisterController extends Controller
                     'password' => 'required|string|min:6',
                   ]);
       $kembali['condition'] = 'fail';
-      $kembali['messages'] = 'Validation Error';
-      $kembali['error'] = $validasi->messages();
+      $kembali['messages'] = $validasi->messages();
       return ($validasi->fails()) ? response()->json($kembali) : 'success';
     }
 

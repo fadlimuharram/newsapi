@@ -15,7 +15,7 @@ class CreatePicturesTable extends Migration
     {
         Schema::create('pictures', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('namepic',100);
+            $table->string('namepic',100)->unique();
             $table->string('altpic',100)->nullable();
             $table->string('titlepic',100)->nullable();
             $table->integer('byadmin')->unsigned();

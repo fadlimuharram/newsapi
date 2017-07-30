@@ -8,3 +8,4 @@ Route::delete('/picture/delete/{namepic}','AdminApi\FilesController@deletePictur
 Route::post('/video/upload','AdminApi\FilesController@uploadVideo');
 Route::patch('/video/edit/{namevid}','AdminApi\FilesController@editVideo');
 Route::delete('/video/delete/{namevid}','AdminApi\FilesController@deleteVideo');
+Route::post('/video/pilihan','AdminApi\FilesController@pilihanVideos');

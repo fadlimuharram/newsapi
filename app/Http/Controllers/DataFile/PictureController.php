@@ -77,12 +77,12 @@ class PictureController
               'original'=>[
               'condition'=>'success',
               'messages'=>'Original File successfully uploaded',
-              'location'=>url('api/picture'.$original.'/true')
+              'location'=>url('api/picture'.$original.'/json')
             ],
               'compress'=>[
               'condition'=>'success',
               'messages'=>'Compress File successfully uploaded',
-              'location'=>url('api/picture'.$resize.'/true')
+              'location'=>url('api/picture'.$resize.'/json')
               ]
             ]);
           }else {

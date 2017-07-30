@@ -10,3 +10,4 @@ Route::get('/pictures/original','PublicApi\ReadFileController@GetAllOriginalPict
 Route::get('/pictures/compress','PublicApi\ReadFileController@GetAllCompressPicture');
 Route::get('/video/{namevid}/{asjson?}','PublicApi\ReadFileController@GetVideo');
 Route::get('/videos','PublicApi\ReadFileController@GetAllVideo');
+Route::get('/pilihan/video','PublicApi\ReadFileController@GetPilihanVideo');

@@ -15,8 +15,8 @@ class CreateVideosTable extends Migration
     {
         Schema::create('videos', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('namevid',100);
-            $table->string('poster',100);
+            $table->string('namevid',100)->unique();
+            $table->string('poster',100)->unique();
             $table->string('title',100);
             $table->text('description');
             $table->integer('byadmin')->unsigned();
