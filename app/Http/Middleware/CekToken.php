@@ -1,7 +1,10 @@
 <?php
 
 namespace App\Http\Middleware;
+/*
+tidak di gunakan
 
+*/
 use Closure;
 use JWTAuth;
 

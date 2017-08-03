@@ -251,6 +251,8 @@ class VideoController
           return response()->json(['condition'=>'fail','messages'=>$e->getMessage()]);
         }
         return response()->json(['condition'=>'success','messages'=>"Video with name $namevid successfully deleted"]);
+      }elseif ($hitung > 1) {
+        return $this->MultipleException();
       }else {
         return response()->json(['condition'=>'fail','messages'=>'Video Not Found']);
       }
