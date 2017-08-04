@@ -14,5 +14,10 @@ class Factory extends Controller
     return $cat;
   }
 
+  public function setNews(){
+    $news = new \App\Http\Controllers\DataNews\NewsController;
+    return $news;
+  }
+
 
 }

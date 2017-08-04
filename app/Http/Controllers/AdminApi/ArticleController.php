@@ -27,5 +27,23 @@ class ArticleController extends Controller
     return $category->delete(str_replace('-',' ',$name));
   }
 
+  public function insertNews(Request $req){
+    $factory = new DataNewsFactory;
+    $news = $factory->setNews();
+    return $news->insert($req);
+  }
+
+  public function editNews(Request $req,$id){
+    $factory = new DataNewsFactory;
+    $news = $factory->setNews();
+    return $news->edit($id,$req);
+  }
+
+  public function deleteNews($id){
+    $factory = new DataNewsFactory;
+    $news = $factory->setNews();
+    return $news->delete($id);
+  }
+
 
 }

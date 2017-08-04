@@ -18,4 +18,10 @@ class ReadArticleController extends Controller
     return $category->getAllCategory();
   }
 
+  public function GetArticles(){
+    $factory = new DataNewsFactory;
+    $article = $factory->setNews();
+    return $article->getAllNews();
+  }
+
 }

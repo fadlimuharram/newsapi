@@ -11,4 +11,8 @@ class Category extends Model
   protected $fillable = [
      'name'
   ];
+
+  public function News(){
+    return $this->hasMany('App\News','category_id');
+  }
 }

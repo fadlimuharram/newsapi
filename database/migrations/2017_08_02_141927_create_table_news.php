@@ -15,8 +15,10 @@ class CreateTableNews extends Migration
     {
       Schema::create('news', function (Blueprint $table) {
           $table->increments('id');
-          $table->string('title',100);
+          $table->string('title',50)->unique();
           $table->integer('hit')->unsigned();
+          $table->string('short_content',200);
+          $table->mediumText('content');
           $table->enum('enablecomment',['t','f']);
           $table->integer('byadmin')->unsigned();
           $table->timestamps();
@@ -25,8 +27,8 @@ class CreateTableNews extends Migration
       Schema::table('news',function(Blueprint $tbl){
         $tbl->integer('cover')->unsigned();
         $tbl->foreign('cover')->references('id')->on('pictures');
-        $tbl->integer('catagory_id')->unsigned();
-        $tbl->foreign('catagory_id')->references('id')->on('categories')->onDelete('cascade')->onUpdate('cascade');
+        $tbl->integer('category_id')->unsigned();
+        $tbl->foreign('category_id')->references('id')->on('categories')->onDelete('cascade')->onUpdate('cascade');
       });
     }
 
