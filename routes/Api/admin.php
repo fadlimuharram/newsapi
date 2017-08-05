@@ -18,4 +18,7 @@ Route::delete('/category/delete/{name}','AdminApi\ArticleController@deleteCatego
 
 Route::post('/article/insert','AdminApi\ArticleController@insertNews');
 Route::patch('/article/edit/{id}','AdminApi\ArticleController@editNews');
-ROute::delete('/article/delete/{id}','AdminApi\ArticleController@deleteNews');
+Route::delete('/article/delete/{id}','AdminApi\ArticleController@deleteNews');
+
+Route::post('/article/hotnews/insert','AdminApi\ArticleController@insertHotNews');
+Route::delete('/article/hotnews/delete/{title}','AdminApi\ArticleController@deleteHotNews');

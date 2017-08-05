@@ -20,4 +20,8 @@ class News extends Model
       return $this->belongsTo('App\Category','category_id');
     }
 
+    public function Hotnews(){
+      return $this->hasOne("App\Hotnews","news_id");
+    }
+
 }

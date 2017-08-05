@@ -6,3 +6,7 @@
 Route::get('/categories','PrivateApi\ReadArticleController@GetCategories');
 
 Route::get('/articles','PrivateApi\ReadArticleController@GetArticles');
+
+Route::get('/read/{title}','PrivateApi\ReadArticleController@ReadArticles');
+
+Route::get('/hotnews','PrivateApi\ReadArticleController@ReadHotnews');

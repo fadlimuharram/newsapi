@@ -24,4 +24,16 @@ class ReadArticleController extends Controller
     return $article->getAllNews();
   }
 
+  public function ReadArticles($title){
+    $factory = new DataNewsFactory;
+    $article = $factory->setNews();
+    return $article->getNews(str_replace('-',' ',$title));
+  }
+
+  public function ReadHotnews(){
+    $factory = new DataNewsFactory;
+    $hotnews = $factory->setHotNews();
+    return $hotnews->getHotNews();
+  }
+
 }

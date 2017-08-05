@@ -24,7 +24,38 @@ class NewsController extends Controller
     } catch (\Exception $e) {
       return response()->json(['condition'=>'fail','messages'=>$e->getMessage()]);
     }
+    return response()->json(['condition'=>'success','pagination'=>$news]);
+  }
+
+  public function getNews($title){
+    $hitung = News::where('title',$title)->count();
+    if ($hitung == 0) {
+      return response()->json(['condition'=>'fail','messages'=>'Article Not Found']);
+    }
+
+    if ($hitung > 1) {
+      return response()->json(['condition'=>'fail','messages'=>'Something Went Wrong']);
+    }
+
+    try {
+      $news = DB::table('news')
+            ->join('categories','news.category_id','=','categories.id')
+            ->join('pictures','news.cover','=','pictures.id')
+            ->select('news.id','news.title','news.hit','news.content','categories.name as category','pictures.namepic as cover','news.created_at','news.updated_at')
+            ->where('news.title',$title)
+            ->get()
+            ->toArray();
+      $AddHitNews = News::where('title',$title)->first();
+      $AddHitNews->hit =  $AddHitNews->hit + 1;
+      $AddHitNews->timestamps = false;
+      $AddHitNews->save();
+
+    } catch (Exception $e) {
+      return response()->json(['condition'=>'fail','messages'=>$e->getMessage()]);
+    }
+
     return response()->json(['condition'=>'success','data'=>$news]);
+
   }
 
   public function insert($req){
@@ -64,7 +95,7 @@ class NewsController extends Controller
 
   private function validateNews($req){
     $validasi = Validator($req->all(), [
-                  'title'=>'required|max:100',
+                  'title'=>'required|max:100|unique:news,title',
                   'enable_comment'=>['required',Rule::in(['t','f'])],
                   'cover'=>'required|exists:pictures,namepic',
                   'short_content'=>'required|max:200',

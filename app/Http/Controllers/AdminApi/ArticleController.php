@@ -45,5 +45,17 @@ class ArticleController extends Controller
     return $news->delete($id);
   }
 
+  public function insertHotNews(Request $req){
+    $factory = new DataNewsFactory;
+    $hotnews = $factory->setHotNews();
+    return $hotnews->insert($req);
+  }
+
+  public function deleteHotNews($title){
+    $factory = new DataNewsFactory;
+    $hotnews = $factory->setHotNews();
+    return $hotnews->delete(str_replace('-',' ',$title));
+  }
+
 
 }
