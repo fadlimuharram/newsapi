@@ -13,3 +13,13 @@ Route::get('/pictures/compress','PublicApi\ReadFileController@GetAllCompressPict
 Route::get('/video/{namevid}/{asjson?}','PublicApi\ReadFileController@GetVideo');
 Route::get('/videos','PublicApi\ReadFileController@GetAllVideo');
 Route::get('/pilihan/video','PublicApi\ReadFileController@GetPilihanVideo');
+
+Route::post('/comment/insert','PublicApi\CommentsController@insert');
+Route::post('/childcomment/insert','PublicApi\ChildCommentsController@insert');
+Route::get('/tesIP',function(){
+  return Request::ip();
+});
+
+Route::get('/tesaja',function(){
+  return \Carbon\Carbon::now()->timestamp;
+});

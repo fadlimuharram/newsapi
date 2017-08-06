@@ -22,3 +22,6 @@ Route::delete('/article/delete/{id}','AdminApi\ArticleController@deleteNews');
 
 Route::post('/article/hotnews/insert','AdminApi\ArticleController@insertHotNews');
 Route::delete('/article/hotnews/delete/{title}','AdminApi\ArticleController@deleteHotNews');
+
+Route::delete('/comment/delete/{id}','PublicApi\CommentsController@delete');
+Route::delete('/childcomment/delete/{id}','PublicApi\ChildCommentsController@delete');

@@ -57,5 +57,7 @@ class ArticleController extends Controller
     return $hotnews->delete(str_replace('-',' ',$title));
   }
 
+  
+
 
 }
