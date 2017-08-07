@@ -18,6 +18,12 @@ class ReadArticleController extends Controller
     return $category->getAllCategory();
   }
 
+  public function GetArticleByCategory($categoryname){
+    $factory = new DataNewsFactory;
+    $category = $factory->setCategory();
+    return $category->getArticles(str_replace('-',' ',$categoryname));
+  }
+
   public function GetArticles(){
     $factory = new DataNewsFactory;
     $article = $factory->setNews();

@@ -5,6 +5,8 @@
 
 Route::get('/categories','PrivateApi\ReadArticleController@GetCategories');
 
+Route::get('/article/category/{category}','PrivateApi\ReadArticleController@GetArticleByCategory');
+
 Route::get('/articles','PrivateApi\ReadArticleController@GetArticles');
 
 Route::get('/read/{title}','PrivateApi\ReadArticleController@ReadArticles');

@@ -15,7 +15,11 @@ class CommentsController extends Controller
 
   public function getcomments($title){
     try {
-      $getid = News::where('title',str_replace('-',' ',$title))->first()['id'];
+      $news = News::where('title',str_replace('-',' ',$title))->first();
+      $getid = $news['id'];
+      if ($news['enablecomment'] == 'f') {
+        return response()->json(['condition'=>'success','messages'=>'Comment Feature Is Disable']);
+      }
       if ($getid == null) {
         return response()->json(['condition'=>'fail','messages'=>'Article Not Found']);
       }

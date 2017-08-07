@@ -24,4 +24,5 @@ class News extends Model
       return $this->hasOne("App\Hotnews","news_id");
     }
 
+
 }

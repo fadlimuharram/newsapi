@@ -19,6 +19,7 @@ class NewsController extends Controller
             ->join('categories','news.category_id','=','categories.id')
             ->join('pictures','news.cover','=','pictures.id')
             ->select('news.id','news.title','news.hit','news.short_content','categories.name as category','pictures.namepic as cover','news.created_at','news.updated_at')
+            ->orderBy('id','desc')
             ->paginate(15);
 
     } catch (\Exception $e) {

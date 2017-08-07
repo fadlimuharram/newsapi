@@ -4,7 +4,7 @@ namespace App\Http\Controllers\DataNews;
 
 use App\Http\Controllers\Controller;
 use App\Category;
-
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
@@ -99,6 +99,23 @@ class CategoryController extends Controller
       return response()->json(['condition'=>'fail','messages'=>$e->getMessage()]);
     }
     return response()->json(['condition'=>'success','data'=>$category]);
+  }
+
+  public function getArticles($categoryname){
+    try {
+
+      $news = DB::table('news')
+            ->join('categories','news.category_id','=','categories.id')
+            ->join('pictures','news.cover','=','pictures.id')
+            ->select('news.id','news.title','news.hit','news.short_content','categories.name as category','pictures.namepic as cover','news.created_at','news.updated_at')
+            ->where('categories.name',$categoryname)
+            ->orderBy('id','desc')
+            ->paginate(15);
+
+    } catch (\Exception $e) {
+      return response()->json(['condition'=>'fail','messages'=>$e->getMessage()]);
+    }
+    return response()->json(['condition'=>'success','pagination'=>$news]);
   }
 
   private function validateCategory($req){
